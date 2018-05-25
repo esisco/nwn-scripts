@@ -20,12 +20,15 @@ void JumpToStart(object oPC)
     }
     ClearAllActions();
     JumpToObject(oStartPoint);
+    SetLocalInt(oPC, "HAS_STARTED", TRUE);
 }
 
 void main()
 {
     object oPC = GetEnteringObject();
     if (GetIsPC(oPC)) {
+        int iPreviousLoad = GetLocalInt(oPC, "HAS_STARTED");
+        if (iPreviousLoad) { return; }
         JumpToStart(oPC);
     }
 }
